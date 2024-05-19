@@ -21,14 +21,19 @@ def print_titlescreen():
           \/                        \/            \/      
   """)
 
-def print_response(response, error_message):
-  if not error_message:
-    print(response.text)
-  elif error_message not in response.text and response.text != '{}':
-    print(response.text)
+def print_response(response, payload, error_message):
+  if response.status_code == 200:
+    if not error_message:
+      print(f'[+] Payload: {payload}')
+      print(f'[+] {response.text}\n')
+    elif error_message not in response.text and response.text != '{}':
+      print(f'[+] Payload: {payload}')
+      print(f'[+] {response.text}\n')
+  else:
+    print(f'[!] Error: Request returning {response.status_code}')
 
 def send_payloads(url, error_message, json_key=None):
-  print('[+] Starting payload fuzzing')
+  print('[!] Starting payload fuzzing')
   with open('payloads.txt', 'r') as payloads:
     for payload in payloads:
       if payload[0] == '#' or payload[0] == '\n':
@@ -41,26 +46,33 @@ def send_payloads(url, error_message, json_key=None):
         else:
           data = current_payload
           response = requests.post(url=url, data=data, headers=HEADER)
-        print_response(response, error_message)
+        
+        print_response(response, payload, error_message)
 
 def main():
-  parser = argparse.ArgumentParser(
-    prog        = 'Evil Eval',
-    description = 'Evil Eval is a simple script designed to test an input with various eval payloads.',
-    epilog      = 'The primary goal is to identify which payload the eval function is vulnerable.'
-  )
-  
-  parser.add_argument('-u', '--url', metavar='', help='The URL you are attacking.', required=True)
-  parser.add_argument('-e', '--error', metavar='', help='Set the error message to filter unsuccessful payloads.')
-  parser.add_argument('-j', '--json', metavar='', help='Set the JSON key if payload is JSON.')
-  
-  args = parser.parse_args()
-  url, error_message, json_key = args.url, args.error, args.json
-  if json_key:
-    HEADER['Content-Type'] = 'application/json'
+  try:
+    parser = argparse.ArgumentParser(
+      prog        = 'Evil Eval',
+      description = 'Evil Eval is a simple script designed to test an input with various eval payloads.',
+      epilog      = 'The primary goal is to identify which payload the eval function is vulnerable.'
+    )
+    
+    parser.add_argument('-u', '--url', metavar='', help='The URL you are attacking.', required=True)
+    parser.add_argument('-e', '--error', metavar='', help='Set the error message to filter unsuccessful payloads.')
+    parser.add_argument('-j', '--json', metavar='', help='Set the JSON key if payload is JSON.')
+    
+    args = parser.parse_args()
+    url, error_message, json_key = args.url, args.error, args.json
+    
+    if json_key:
+      HEADER['Content-Type'] = 'application/json'
 
-  print_titlescreen()
-  send_payloads(url, error_message, json_key)
+    print_titlescreen()
+    send_payloads(url, error_message, json_key)
+  except KeyboardInterrupt:
+    print("\n[!] Cleaning up and exiting program...")
+  finally:
+    print("Have a nice day!")
 
 if __name__ == '__main__':
   main()
