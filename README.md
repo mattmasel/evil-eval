@@ -1,5 +1,15 @@
 # Evil Eval
 
+## Usage
+
+~~~bash
+python3 evil_eval.py --url http://example.com --error 'some error message' --json-key key_name
+~~~
+
+## Payloads
+
+The payload list is not exhaustive and more can be added. Comments start with `#` and empty lines will be ignored in the `payloads.txt` file.
+
 ## Disclaimer
 
 This tool, Evil Eval is intended for security testing and educational purposes only. It is designed to help security professionals and developers identify and address vulnerabilities related to the use of eval() functions in JavaScript applications.
@@ -14,13 +24,3 @@ By using Evil Eval, you acknowledge and agree that:
 The authors and contributors of this tool disclaim any responsibility or liability for any misuse or illegal use of this tool by users. Users assume full responsibility for their actions and the consequences thereof.
 
 Remember, responsible and ethical security testing is essential for improving the security posture of applications and protecting against real-world threats. Use this tool responsibly, and always prioritize the safety and integrity of systems and data.
-
-## Usage
-
-~~~bash
-python3 evil_eval.py --url http://example.com --error 'some error message' --json-key key_name
-~~~
-
-## Payloads
-
-The payload list is not exhaustive and more can be added. Comments start with `#` and empty lines will be ignored in the `payloads.txt` file.
