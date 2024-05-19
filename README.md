@@ -1,5 +1,7 @@
 # Evil Eval
 
+This script can be used to fuzz potentially vulnerable eval() functions when present as a `POST` request.
+
 ## Usage
 
 ~~~bash
@@ -9,6 +11,14 @@ python3 evil_eval.py --url http://example.com --error 'some error message' --jso
 ## Payloads
 
 The payload list is not exhaustive and more can be added. Comments start with `#` and empty lines will be ignored in the `payloads.txt` file.
+
+## TODO
+
+TODO | Description
+---- | -----------
+1 | Implement error checks for graceful termination, especially when using `Ctrl+C` to exit the program prematurely
+2 | Add more payloads to the payloads.txt file
+3 | Implement `GET` request compatibility
 
 ## Disclaimer
 
