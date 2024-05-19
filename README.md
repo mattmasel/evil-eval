@@ -16,9 +16,8 @@ The payload list is not exhaustive and more can be added. Comments start with `#
 
 TODO | Description
 ---- | -----------
-1 | Implement error checks for graceful termination, especially when using `Ctrl+C` to exit the program prematurely
-2 | Add more payloads to the payloads.txt file
-3 | Implement `GET` request compatibility
+1 | Add more payloads to the payloads.txt file
+2 | Implement `GET` request compatibility
 
 ## Disclaimer
 
